@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col overflow-x-auto">
     <div class="inline-block">
-      <div class="overflow-x-auto p-10">
+      <div class="overflow-x-auto">
         <table
           class="min-w-full flex flex-row flex-no-wrap sm:bg-white overflow-hidden sm:shadow-lg my-5"
         >

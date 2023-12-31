@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!loading">{{ product }}</div>
+  <div class="overflow-auto" v-if="!loading">{{ product }}</div>
   <div v-else>loading...</div>
 </template>
 
