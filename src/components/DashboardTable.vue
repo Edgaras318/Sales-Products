@@ -7,7 +7,7 @@
         >
           <thead>
             <tr
-              v-for="(product, index) in props.products"
+              v-for="(product, index) in sortedProducts"
               :key="index"
               class="flex flex-col flex-no wrap sm:table-row rounded-l-lg mb-2 sm:mb-0"
             >
@@ -15,13 +15,20 @@
                 <input class="checkbox" type="checkbox" />
               </th>
               <th v-for="(header, index) in headers" :key="index" class="text-left">
+                <SortButton
+                  v-if="header == 'Title' || header == 'Brand'"
+                  :fieldName="header"
+                  :sortField="header"
+                  :sortOrder="sortOrders[header]"
+                  @sort="handleSort(header)"
+                />
                 <span>{{ header }}</span>
               </th>
             </tr>
           </thead>
           <tbody class="flex-1 sm:flex-none">
             <tr
-              v-for="product in props.products"
+              v-for="product in sortedProducts"
               class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0"
             >
               <td class="truncate">
@@ -59,7 +66,10 @@
 </template>
 
 <script setup lang="ts">
+import SortButton from '@/components/SortButton.vue'
 import type { Product } from '@/types/Product'
+import { ref } from 'vue'
+import type { SortOrders } from '@/types/SortOrder'
 
 const props = defineProps({
   products: {
@@ -69,6 +79,47 @@ const props = defineProps({
 })
 
 const headers = ['Title', 'Category', 'Brand', 'Price', 'Stock', 'Rating']
+
+// const sortOrder = ref<'asc' | 'desc'>('asc')
+
+const sortedProducts = ref<Product[]>(props.products)
+
+const sortOrders = ref<SortOrders>({
+  Title: 'asc',
+  Category: 'asc',
+  Brand: 'asc',
+  Price: 'asc',
+  Stock: 'asc',
+  Rating: 'asc'
+})
+
+const handleSort = (field: string) => {
+  const currentSortOrder = sortOrders.value[field]
+  const nextSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc'
+
+  // Update sortOrders for the field
+  sortOrders.value = {
+    ...sortOrders.value,
+    [field]: nextSortOrder
+  }
+
+  sortProducts(field, nextSortOrder)
+}
+
+const sortProducts = (field: string, sortOrder: 'asc' | 'desc') => {
+  const fieldName = field.toLowerCase()
+  sortedProducts.value.sort((a, b) => {
+    const fieldA = a[fieldName].toUpperCase()
+    const fieldB = b[fieldName].toUpperCase()
+    let comparison = 0
+    if (fieldA > fieldB) {
+      comparison = 1
+    } else if (fieldA < fieldB) {
+      comparison = -1
+    }
+    return sortOrder === 'asc' ? comparison : -comparison
+  })
+}
 </script>
 
 <style scoped>
