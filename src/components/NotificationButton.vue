@@ -3,7 +3,7 @@ import NotificationIcon from '@/components/GeneralIcons/NotificationIcon.vue'
 </script>
 
 <template>
-  <div class="parent">
+  <div class="relative">
     <div class="circle"></div>
     <div class="notification-btn flex justify-center items-center">
       <NotificationIcon />
@@ -17,10 +17,6 @@ import NotificationIcon from '@/components/GeneralIcons/NotificationIcon.vue'
   height: 52px;
   border-radius: 3px;
   background: #ffffff;
-}
-.parent {
-  position: relative;
-  /* Other styles for your parent container */
 }
 .circle {
   position: absolute;
