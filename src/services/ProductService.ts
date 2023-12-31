@@ -6,9 +6,11 @@ import type { ProductsResponse } from '@/types/ProductsResponse' // Make sure to
 const API_BASE_URL = 'https://dummyjson.com'
 
 const ProductService = {
-  async fetchProducts(): Promise<ProductsResponse> {
+  async fetchProducts(skip: number = 0, limit: number = 10): Promise<ProductsResponse> {
     try {
-      const responseData = await customFetch<any>(`${API_BASE_URL}/products`)
+      const responseData = await customFetch<any>(
+        `${API_BASE_URL}/products?limit=${limit}&skip=${skip}` // Fixed query parameters
+      )
       return {
         products: responseData.products,
         total: responseData.total,

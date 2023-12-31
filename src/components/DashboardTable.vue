@@ -1,31 +1,55 @@
 <template>
-  <div class="container p-10">
-    <table class="w-full flex flex-row flex-no-wrap sm:bg-white overflow-hidden sm:shadow-lg my-5">
-      <thead>
-        <tr
-          v-for="(header, index) in headers"
-          :key="index"
-          class="flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0"
+  <div class="flex flex-col overflow-x-auto">
+    <div class="inline-block">
+      <div class="overflow-x-auto p-10">
+        <table
+          class="min-w-full flex flex-row flex-no-wrap sm:bg-white overflow-hidden sm:shadow-lg my-5"
         >
-          <th v-for="(header, index) in headers" :key="index" class="p-3 text-left">
-            {{ header }}
-          </th>
-        </tr>
-      </thead>
-      <tbody class="flex-1 sm:flex-none">
-        <tr
-          v-for="product in products"
-          class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0"
-        >
-          <td class="hover:bg-gray-100 p-3">{{ product.title }}</td>
-          <td class="hover:bg-gray-100 p-3">{{ product.category }}</td>
-          <td class="hover:bg-gray-100 p-3">{{ product.brand }}</td>
-          <td class="hover:bg-gray-100 p-3">{{ product.price }}</td>
-          <td class="hover:bg-gray-100 p-3">{{ product.stock }}</td>
-          <td class="hover:bg-gray-100 p-3">{{ product.rating }}</td>
-        </tr>
-      </tbody>
-    </table>
+          <thead>
+            <tr
+              v-for="(product, index) in products"
+              :key="index"
+              class="flex flex-col flex-no wrap sm:table-row rounded-l-lg mb-2 sm:mb-0"
+            >
+              <th>
+                <input class="checkbox" type="checkbox" />
+              </th>
+              <th v-for="(header, index) in headers" :key="index" class="text-left">
+                <span>{{ header }}</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="flex-1 sm:flex-none">
+            <tr
+              v-for="product in products"
+              class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0"
+            >
+              <td class="hover:bg-gray-100 truncate">
+                <input class="checkbox" type="checkbox" />
+              </td>
+              <td class="hover:bg-gray-100 truncate">
+                <span>{{ product.title }}</span>
+              </td>
+              <td class="hover:bg-gray-100 truncate">
+                <span> {{ product.category }} </span>
+              </td>
+              <td class="hover:bg-gray-100 truncate">
+                <span>{{ product.brand }}</span>
+              </td>
+              <td class="hover:bg-gray-100 truncate">
+                <span>{{ product.price }}</span>
+              </td>
+              <td class="hover:bg-gray-100 truncate">
+                <span>{{ product.stock }}</span>
+              </td>
+              <td class="hover:bg-gray-100 truncate">
+                <span> {{ product.rating }} </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -73,13 +97,45 @@ onMounted(async () => {
   }
 }
 
+td,
+th {
+  padding: 24px;
+}
+
 @media (max-width: 640px) {
   tr {
-    border: 1px solid black;
+    background: white;
+    border-radius: 3px;
+  }
+  td,
+  th {
+    border-bottom: 1px solid #f2f2f2;
   }
 }
 
 tr {
   border-bottom: 1px solid #f2f2f2;
+}
+
+.checkbox {
+  width: 24px;
+  height: 24px;
+}
+
+th.span {
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0px;
+  text-align: left;
+}
+
+td.span {
+  /* If you want to apply these styles to specific elements */
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0px;
+  text-align: left;
 }
 </style>
