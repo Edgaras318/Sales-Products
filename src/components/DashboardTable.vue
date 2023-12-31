@@ -7,7 +7,7 @@
         >
           <thead>
             <tr
-              v-for="(product, index) in products"
+              v-for="(product, index) in props.products"
               :key="index"
               class="flex flex-col flex-no wrap sm:table-row rounded-l-lg mb-2 sm:mb-0"
             >
@@ -21,7 +21,7 @@
           </thead>
           <tbody class="flex-1 sm:flex-none">
             <tr
-              v-for="product in products"
+              v-for="product in props.products"
               class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0"
             >
               <td class="truncate">
@@ -59,35 +59,16 @@
 </template>
 
 <script setup lang="ts">
-import ProductService from '@/services/ProductService'
-import { onMounted, ref } from 'vue'
 import type { Product } from '@/types/Product'
 
-const products = ref<Product[]>([])
-const total = ref<number>(0)
-const skip = ref<number>(0)
-const limit = ref<number>(0)
-const loading = ref(false)
-const headers = ['Title', 'Category', 'Brand', 'Price', 'Stock', 'Rating']
-
-onMounted(async () => {
-  try {
-    loading.value = true
-    const {
-      products: fetchedProducts,
-      total: fetchedTotal,
-      skip: fetchedSkip,
-      limit: fetchedLimit
-    } = await ProductService.fetchProducts()
-
-    products.value = fetchedProducts
-  } catch (error: any) {
-    console.error('Error fetching products:', error.message)
-    // Handle error: show message to the user, log, etc.
-  } finally {
-    loading.value = false
+const props = defineProps({
+  products: {
+    type: Array as () => Product[],
+    required: true
   }
 })
+
+const headers = ['Title', 'Category', 'Brand', 'Price', 'Stock', 'Rating']
 </script>
 
 <style scoped>

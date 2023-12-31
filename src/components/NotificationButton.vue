@@ -3,7 +3,7 @@ import NotificationIcon from '@/components/GeneralIcons/NotificationIcon.vue'
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative cursor-pointer">
     <div class="circle"></div>
     <div class="notification-btn flex justify-center items-center">
       <NotificationIcon />

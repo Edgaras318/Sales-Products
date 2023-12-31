@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="avatar">
+  <div class="avatar cursor-pointer">
     <svg
       width="52"
       height="53"
