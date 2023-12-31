@@ -22,7 +22,7 @@ const ProductService = {
     }
   },
 
-  async fetchProductDetails(id: string): Promise<ProductType> {
+  async fetchProductDetails(id: any): Promise<ProductType> {
     try {
       const product = await customFetch<ProductType>(`${API_BASE_URL}/products/${id}`)
       return product

@@ -24,25 +24,30 @@
               v-for="product in products"
               class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0"
             >
-              <td class="hover:bg-gray-100 truncate">
+              <td class="truncate">
                 <input class="checkbox" type="checkbox" />
               </td>
-              <td class="hover:bg-gray-100 truncate">
-                <span>{{ product.title }}</span>
+              <td class="truncate">
+                <router-link
+                  :to="'/product/' + product.id"
+                  class="text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"
+                >
+                  {{ product.title }}</router-link
+                >
               </td>
-              <td class="hover:bg-gray-100 truncate">
+              <td class="truncate">
                 <span> {{ product.category }} </span>
               </td>
-              <td class="hover:bg-gray-100 truncate">
+              <td class="truncate">
                 <span>{{ product.brand }}</span>
               </td>
-              <td class="hover:bg-gray-100 truncate">
+              <td class="truncate">
                 <span>{{ product.price }}</span>
               </td>
-              <td class="hover:bg-gray-100 truncate">
+              <td class="truncate">
                 <span>{{ product.stock }}</span>
               </td>
-              <td class="hover:bg-gray-100 truncate">
+              <td class="truncate">
                 <span> {{ product.rating }} </span>
               </td>
             </tr>
